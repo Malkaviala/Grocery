@@ -1,308 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Budget Tracker</title>
-  <!-- SweetAlert library for nice alerts -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <!-- Styles for the form and table -->
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f0f2f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .formbold-form-wrapper {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 600px;
-    }
-    .formbold-form-title {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .formbold-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    .formbold-table th, .formbold-table td {
-      padding: 12px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-    .formbold-table th {
-      background-color: #f2f2f2;
-      color: #333;
-    }
-    .formbold-table td {
-      background-color: #fff;
-    }
-    .formbold-btn {
-      font-size: 16px;
-      border-radius: 5px;
-      padding: 14px 25px;
-      border: none;
-      font-weight: 500;
-      background-color: #6a64f1;
-      color: white;
-      cursor: pointer;
-      margin-top: 15px;
-      transition: background-color 0.3s ease;
-    }
-    .formbold-btn:hover {
-      background-color: #524dc7;
-    }
-    .formbold-form-input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      margin-top: 6px;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="formbold-form-wrapper">
+        <h1 class="formbold-form-title">Budget Tracker</h1>
+        <form id="budgetForm">
+            <label for="budget">Budget:</label>
+            <input type="number" id="budget" class="formbold-form-input" required step="0.01"><br>
 
-<div class="formbold-form-wrapper">
-  <div class="formbold-form-title">
-    <h2>Product Budget Tracker</h2>
-  </div>
+            <label for="taxRate">Tax Rate (%):</label>
+            <input type="number" id="taxRate" class="formbold-form-input" value="2.5" step="0.01"><br>
 
-  <form id="budgetForm">
-    <label for="budget">Budget:</label>
-    <input type="number" id="budget" class="formbold-form-input" placeholder="Enter your budget">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" class="formbold-form-input" required><br>
 
-    <label for="product">Product Name:</label>
-    <input type="text" id="product" class="formbold-form-input" placeholder="Enter product name">
+            <label for="pricePerUnit">Price per Unit:</label>
+            <input type="number" id="pricePerUnit" class="formbold-form-input" required step="0.01"><br>
 
-    <label for="price">Price:</label>
-    <input type="number" id="price" class="formbold-form-input" placeholder="Enter price">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" class="formbold-form-input" required><br>
 
-    <label for="quantity">Quantity:</label>
-    <input type="number" id="quantity" class="formbold-form-input" placeholder="Enter quantity">
+            <button type="submit" class="formbold-btn">Add Product</button>
+            <button id="resetButton" class="formbold-btn">Reset</button>
 
-    <button type="button" onclick="addProduct()" class="formbold-btn">Add Product</button>
-    <button type="button" onclick="resetForm()" class="formbold-btn" style="background-color: #e74c3c;">Reset</button>
-  </form>
+        </form>
 
-  <div>
-    <h3>Products</h3>
-    <table id="productTable" class="formbold-table">
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Total Cost</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="productBody">
-        <!-- Product rows will be dynamically added here -->
-      </tbody>
-    </table>
-  </div>
+        <div id="budgetDetails">
+            <h2>Budget Details</h2>
+            <p>Total Cost (Before Tax): <span id="totalCostBeforeTax">$0.00</span></p>
+            <p>Total Cost (After Tax): <span id="totalCostAfterTax">$0.00</span></p>
+            <p>Remaining Budget: <span id="remainingBudget">$0.00</span></p>
+        </div>
 
-  <div>
-    <h3 id="totalCost">Total Cost: $0.00</h3>
-    <h3 id="remainingBudget">Remaining Budget: $0.00</h3>
-  </div>
+        <table class="formbold-table">
+            <caption>Products Purchased</caption>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price per Unit</th>
+                    <th>Quantity</th>
+                    <th>Total Cost</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="productTableBody">
+                <!-- Products will be dynamically added here -->
+            </tbody>
+        </table>
 
-</div>
+    </div>
 
-<!-- JavaScript for functionality -->
-<script>
-    let products = [];
-    let totalCost = 0;
-    
-    // Function to load data from localStorage on page load
-    function loadDataFromStorage() {
-      const storedProducts = JSON.parse(localStorage.getItem('products'));
-      const storedBudget = parseFloat(localStorage.getItem('budget'));
-    
-      if (storedProducts) {
-        products = storedProducts;
-        updateProductTable();
-      }
-    
-      if (!isNaN(storedBudget)) {
-        document.getElementById('budget').value = storedBudget;
-        updateProductTable(); // Update product table after setting budget
-      } else {
-        // Handle case where budget is NaN or not stored
-        document.getElementById('budget').value = '';
-        updateProductTable(); // Update product table to reset calculations
-      }
-    }
-    
-    // Function to save data to localStorage
-    function saveDataToStorage() {
-      localStorage.setItem('products', JSON.stringify(products));
-      localStorage.setItem('budget', JSON.stringify(parseFloat(document.getElementById('budget').value)));
-    }
-    
-    function addProduct() {
-      const productName = document.getElementById('product').value.trim();
-      const price = parseFloat(document.getElementById('price').value);
-      const quantity = parseInt(document.getElementById('quantity').value, 10);
-    
-      if (!productName || isNaN(price) || isNaN(quantity) || price <= 0 || quantity <= 0) {
-        Swal.fire({
-          title: "Error",
-          text: "Please fill out all fields with valid values.",
-          icon: "error",
-          button: "OK",
-        });
-        return;
-      }
-    
-      const cost = price * quantity;
-      const product = {
-        name: productName,
-        price: price,
-        quantity: quantity,
-        cost: cost
-      };
-    
-      products.push(product);
-      totalCost += cost;
-      updateProductTable();
-      saveDataToStorage();
-    
-      document.getElementById('product').value = '';
-      document.getElementById('price').value = '';
-      document.getElementById('quantity').value = '';
-    
-      Swal.fire({
-        title: 'Success!',
-        text: 'Product added successfully.',
-        icon: 'success',
-        timer: 1500,
-        showConfirmButton: false
-      });
-    }
-    
-    function editProduct(index) {
-      const product = products[index];
-      document.getElementById('product').value = product.name;
-      document.getElementById('price').value = product.price;
-      document.getElementById('quantity').value = product.quantity;
-    
-      totalCost -= product.cost;
-      products.splice(index, 1);
-      updateProductTable();
-      saveDataToStorage();
-    
-      Swal.fire({
-        title: 'Success!',
-        text: 'Product edited successfully.',
-        icon: 'success',
-        timer: 1500,
-        showConfirmButton: false
-      });
-    }
-    
-    function removeProduct(index) {
-      const product = products[index];
-      totalCost -= product.cost;
-      products.splice(index, 1);
-      updateProductTable();
-      saveDataToStorage();
-    
-      Swal.fire({
-        title: 'Deleted!',
-        text: 'Your product has been deleted.',
-        icon: 'success',
-        timer: 1500,
-        showConfirmButton: false
-      });
-    }
-    
-    function updateProductTable() {
-      const productBody = document.getElementById('productBody');
-      productBody.innerHTML = '';
-    
-      products.forEach((product, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${product.name}</td>
-            <td>${product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
-            <td>${product.quantity}</td>
-            <td>${product.cost.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
-            <td>
-                <button onclick="editProduct(${index})">Edit</button>
-                <button onclick="removeProduct(${index})">Remove</button>
-            </td>
-        `;
-        productBody.appendChild(row);
-      });
-    
-      document.getElementById('totalCost').textContent = `Total Cost: ${totalCost.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}`;
-    
-      const budget = parseFloat(document.getElementById('budget').value);
-      if (!isNaN(budget)) {
-        const remainingBudget = budget - totalCost;
-        document.getElementById('remainingBudget').textContent = `Remaining Budget: ${remainingBudget.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}`;
-      } else {
-        document.getElementById('remainingBudget').textContent = `Remaining Budget: $0.00`;
-      }
-    
-      saveDataToStorage();
-    }
-    
-    function resetForm() {
-      document.getElementById('budget').value = '';
-      document.getElementById('product').value = '';
-      document.getElementById('price').value = '';
-      document.getElementById('quantity').value = '';
-      products = [];
-      totalCost = 0;
-      updateProductTable();
-    
-      Swal.fire({
-        title: 'Form Reset',
-        text: 'The form has been reset.',
-        icon: 'info',
-        timer: 1500,
-        showConfirmButton: false
-      });
-    
-      // Clear local storage after reset
-      localStorage.clear();
-    }
-    
-    // Event listeners for input fields to update calculations in real-time
-    document.getElementById('budget').addEventListener('input', updateProductTable);
-    document.getElementById('product').addEventListener('input', updateProductTable);
-    document.getElementById('price').addEventListener('input', updateProductTable);
-    document.getElementById('quantity').addEventListener('input', updateProductTable);
-    
-    // Load data from localStorage on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      loadDataFromStorage();
-    });
-    
-  
-  </script>
-  
-  </body>
-  </html>
-  
-
-
+    <script src="scripts.js"></script>
+</body>
+</html>
