@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.formbold-form-wrapper {
+    background: #1a1a1a; /* Black backdrop */
+    color: #fff; /* White text color for contrast */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px; /* Increase max-width for wider form */
+}
+
+.formbold-form-title {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.formbold-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed; /* Ensure fixed table layout */
+}
+
+.formbold-table th,
+.formbold-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Ellipsis for overflow text */
+    white-space: nowrap; /* No wrapping */
+}
+
+.formbold-table th {
+    background-color: #333; /* Dark background for table header */
+    color: #fff; /* White text color for table header */
+}
+
+.formbold-table td {
+    background-color: #444; /* Darker background for table cells */
+    color: #fff; /* White text color for table cells */
+    vertical-align: middle; /* Align content vertically */
+}
+
+.formbold-btn {
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 8px 12px; /* Adjusted padding for buttons */
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    display: inline-block; /* Ensure buttons are inline */
+}
+
+.formbold-btn.add-btn {
+    background-color: #4caf50; /* Green color for add product button */
+    color: #fff; /* White text color for add product button */
+}
+
+.formbold-btn.add-btn:hover {
+    background-color: #45a049; /* Darker green on hover for add product button */
+}
+
+.formbold-btn.reset-btn {
+    background-color: #f44336; /* Red color for reset button */
+    color: #fff; /* White text color for reset button */
+}
+
+.formbold-btn.reset-btn:hover {
+    background-color: #d32f2f; /* Darker red on hover for reset button */
+}
+
+.formbold-form-input {
+    width: calc(100% - 24px); /* Adjusted width to account for padding */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #333; /* Dark background for inputs */
+    color: #fff; /* White text color for inputs */
+}
+
+.formbold-form-input::placeholder {
+    color: #ccc; /* Lighter placeholder color */
+}
+
+/* Styling for budget details section */
+#budgetDetails {
+    color: #fff; /* White text color */
+}
+
+#budgetDetails h2 {
+    color: #fff; /* White text color */
+}
+
+#budgetDetails p {
+    color: #fff; /* White text color */
+}
+
+#budgetDetails span {
+    font-weight: bold;
+}
+
+/* Styling for product table */
+.formbold-table caption {
+    color: #fff; /* White text color for table caption */
+}
+
+/* Styling for delete and edit buttons */
+.delete-btn,
+.edit-btn {
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #f44336; /* Red color for delete button */
+    color: #fff; /* White text color for buttons */
+    border: none;
+    float: left; /* Float buttons to the left */
+    margin-right: 5px; /* Add a margin between buttons */
+}
+
+.edit-btn {
+    background-color: #2196f3; /* Blue color for edit button */
+}
+
+.delete-btn:hover,
+.edit-btn:hover {
+    background-color: #d32f2f; /* Darker red on hover for delete button */
+}
+
+.edit-btn:hover {
+    background-color: #1976d2; /* Darker blue on hover for edit button */
+}
+
+/* styles.css */
+
+/* styles.css */
+
+#addProductButton {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+
+#resetButton {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
